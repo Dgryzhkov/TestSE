@@ -37,13 +37,19 @@ class PhotoStore {
     } catch (error) {
       console.error(error);
       runInAction(() => {
-        if (error instanceof Error) {
-          this.error = 'Ошибка загрузки фотографий';
-        }
-        if (error instanceof AxiosError && error.response) {
-          if (error.response.status >= 500 || error.response.status === 522) {
+        if (error instanceof AxiosError) {
+          if (!error.response) {
+            this.error = 'Проблема с подключением к интернету';
+          } else if (
+            error.response.status >= 500 ||
+            error.response.status === 522
+          ) {
             this.showModal = true;
+          } else {
+            this.error = 'Ошибка загрузки фотографий';
           }
+        } else if (error instanceof Error) {
+          this.error = 'Ошибка загрузки фотографий';
         }
       });
     } finally {
