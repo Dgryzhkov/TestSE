@@ -16,6 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import getStyle from './HomeScreenStyles';
 import CustomModal from '../../widget/CustomModal';
+import Domains from '../../shared/config/Domains';
 
 type RootStackParamList = {
   Home: undefined;
